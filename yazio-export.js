@@ -16,12 +16,13 @@ const client = new Yazio({
 
 async function main() {
   try {
-    // Datum für "gestern" berechnen im Format "YYYY-MM-DD"
-    const yesterday = subDays(new Date(), 1);
-    const yesterdayStr = format(yesterday, "yyyy-MM-dd");
+    // Gestern (lokal), auf 12:00 Uhr mittags setzen, um UTC-Verschiebung zu vermeiden
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setHours(12, 0, 0, 0); // 12:00:00.000
 
     const items = await client.user.getDailySummary({
-      date: new Date("2025-08-27"),
+      date: yesterday,
     });
 
     // an n8n Webhook schicken
