@@ -9,13 +9,16 @@ const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
 const client = new Yazio({
   credentials: {
     username: email,
-    password: password
-  }
+    password: password,
+  },
 });
 
 async function main() {
   try {
-    const items = await client.user.getDailySummary({ date: new Date().getDate() - 1 });
+    const yesterday = new Date();
+    yesterday.setDate(yesterday.getDate() - 1);
+
+    const items = await client.user.getDailySummary({ date: yesterday });
 
     // an n8n Webhook schicken
     const res = await fetch(n8nWebhookUrl, {
@@ -25,7 +28,9 @@ async function main() {
     });
 
     if (!res.ok) {
-      throw new Error(`Webhook fehlgeschlagen: ${res.status} ${res.statusText}`);
+      throw new Error(
+        `Webhook fehlgeschlagen: ${res.status} ${res.statusText}`
+      );
     }
 
     console.log("✅ Yazio-Daten erfolgreich an n8n geschickt");
