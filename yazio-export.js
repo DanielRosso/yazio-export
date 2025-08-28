@@ -6,20 +6,22 @@ const email = process.env.YAZIO_EMAIL;
 const password = process.env.YAZIO_PASSWORD;
 const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
 
-const client = new Yazio();
+const client = new Yazio({
+  credential: {
+    username: "email",
+    password: "password"
+  }
+});
 
 async function main() {
   try {
-    await client.login({ email, password });
-
-    const today = new Date().toISOString().split("T")[0];
-    const summary = await client.getDiaryDay(today);
+    const items = await getConsumedItems({ date: new Date() });
 
     // an n8n Webhook schicken
     const res = await fetch(n8nWebhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(summary),
+      body: JSON.stringify(items),
     });
 
     if (!res.ok) {
