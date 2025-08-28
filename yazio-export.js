@@ -1,5 +1,5 @@
 // yazio-export.js
-import Yazio from "yazio";
+import { Yazio } from "yazio";
 import fetch from "node-fetch";
 
 const email = process.env.YAZIO_EMAIL;
