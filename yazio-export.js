@@ -21,7 +21,7 @@ async function main() {
     const yesterdayStr = format(yesterday, "yyyy-MM-dd");
 
     const items = await client.user.getDailySummary({
-      date: new Date(yesterdayStr),
+      date: new Date("2025-08-27"),
     });
 
     // an n8n Webhook schicken
