@@ -15,7 +15,7 @@ const client = new Yazio({
 
 async function main() {
   try {
-    const items = await client.user.getConsumedItems({ date: new Date() });
+    const items = await client.user.getDailySummary({ date: new Date() });
 
     // an n8n Webhook schicken
     const res = await fetch(n8nWebhookUrl, {
