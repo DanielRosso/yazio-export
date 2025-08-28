@@ -7,7 +7,7 @@ const password = process.env.YAZIO_PASSWORD;
 const n8nWebhookUrl = process.env.N8N_WEBHOOK_URL;
 
 const client = new Yazio({
-  credential: {
+  credentials: {
     username: email,
     password: password
   }
