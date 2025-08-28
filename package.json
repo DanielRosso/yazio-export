@@ -1,0 +1,11 @@
+{
+  "name": "yazio-export",
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "start": "node yazio-export.js"
+  },
+  "dependencies": {
+    "yazio": "^1.0.0"
+  }
+}

@@ -1,0 +1,28 @@
+name: Yazio Export to n8n
+
+on:
+  schedule:
+    - cron: "0 5 * * *"   # jeden Tag um 05:00 UTC (entspricht 07:00 CH)
+  workflow_dispatch:       # manuell starten möglich
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v3
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "18"
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run Yazio Export
+        run: npm start
+        env:
+          YAZIO_EMAIL: ${{ secrets.YAZIO_EMAIL }}
+          YAZIO_PASSWORD: ${{ secrets.YAZIO_PASSWORD }}
+          N8N_WEBHOOK_URL: ${{ secrets.N8N_WEBHOOK_URL }}
