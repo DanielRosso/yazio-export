@@ -26,7 +26,7 @@ async function main() {
 
     // POST-Body vorbereiten
     const payload = {
-      date: dateStr,
+      date: yesterday,
       data: items,
     };
 
