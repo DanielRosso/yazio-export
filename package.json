@@ -6,6 +6,7 @@
     "start": "node yazio-export.js"
   },
   "dependencies": {
-    "yazio": "^1.0.0"
+    "yazio": "^1.0.0",
+    "node-fetch": "^3.3.2"
   }
 }
