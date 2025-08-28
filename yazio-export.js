@@ -18,18 +18,23 @@ async function main() {
   try {
     // Gestern (lokal), auf 12:00 Uhr mittags setzen, um UTC-Verschiebung zu vermeiden
     const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 2);
-    yesterday.setHours(12, 0, 0, 0); // 12:00:00.000
+    yesterday.setDate(yesterday.getDate() - 1);
 
     const items = await client.user.getDailySummary({
       date: yesterday,
     });
 
+    // POST-Body vorbereiten
+    const payload = {
+      date: dateStr,
+      data: items,
+    };
+
     // an n8n Webhook schicken
     const res = await fetch(n8nWebhookUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(items),
+      body: JSON.stringify(payload),
     });
 
     if (!res.ok) {
