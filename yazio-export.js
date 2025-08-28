@@ -1,6 +1,7 @@
 // yazio-export.js
 import { Yazio } from "yazio";
 import fetch from "node-fetch";
+import { subDays, format } from "date-fns";
 
 const email = process.env.YAZIO_EMAIL;
 const password = process.env.YAZIO_PASSWORD;
@@ -15,10 +16,11 @@ const client = new Yazio({
 
 async function main() {
   try {
-    const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
+    // Datum für "gestern" berechnen im Format "YYYY-MM-DD"
+    const yesterday = subDays(new Date(), 1);
+    const yesterdayStr = format(yesterday, "yyyy-MM-dd");
 
-    const items = await client.user.getDailySummary({ date: yesterday });
+    const items = await client.user.getDailySummary({ date: yesterdayStr });
 
     // an n8n Webhook schicken
     const res = await fetch(n8nWebhookUrl, {
