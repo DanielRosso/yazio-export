@@ -18,7 +18,7 @@ async function main() {
   try {
     // Gestern (lokal), auf 12:00 Uhr mittags setzen, um UTC-Verschiebung zu vermeiden
     const yesterday = new Date();
-    yesterday.setDate(yesterday.getDate() - 1);
+    yesterday.setDate(yesterday.getDate() - 2);
     yesterday.setHours(12, 0, 0, 0); // 12:00:00.000
 
     const items = await client.user.getDailySummary({
